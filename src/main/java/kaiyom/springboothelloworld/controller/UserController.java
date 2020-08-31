@@ -1,9 +1,13 @@
 package kaiyom.springboothelloworld.controller;
 
+import kaiyom.springboothelloworld.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -11,30 +15,13 @@ public class UserController {
 
     @GetMapping
     public String getUser(Model model) {
-        model.addAttribute("msg", "Hello, Student" );
+        List<User> userList = new ArrayList<>();
+        userList.add( new User(101, "Joe", 19 ) );
+        userList.add( new User(101, "Tom", 18 ) );
+        userList.add( new User(101, "Alex", 21 ) );
 
-        double grade = 90.5;
-        model.addAttribute("grade", grade );
-        model.addAttribute("GPA", convertGPA(grade) );
-
+        model.addAttribute("userList", userList );
         return "studentPage";
     }
 
-    public String convertGPA (double grade) {
-        if (grade >= 90) {
-            return "A";
-        }
-        else if (grade < 90 && grade >= 80) {
-            return "B";
-        }
-        else if (grade < 80 && grade >= 70) {
-            return "C";
-        }
-        else if (grade < 70 && grade >= 60) {
-            return "D";
-        }
-        else {
-            return "F";
-        }
-    }
 }
