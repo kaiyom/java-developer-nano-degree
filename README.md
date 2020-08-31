@@ -1,2 +1,5 @@
-# java-developer-nano-degree
-A source code repo from udacity course
+# Commit Contains
+
+## Thymeleaf 
+
+basic setup to print a hello message
