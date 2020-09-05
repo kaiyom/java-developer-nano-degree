@@ -5,20 +5,16 @@
     <title>Student Portal</title>
 </head>
 <body>
-    <h2>User list</h2>
+    <h3>Thymeleaf Scope</h3>
+    Request: <span th:text="${#httpServletRequest.getAttribute('request')}"></span><br />
+    Session: <span th:text="${session.session}"></span><br />
+    Application: <span th:text="${application.application}"></span><br />
 
-    <table>
-        <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Age</th>
-        </tr>
-        <tr th:each="user : ${userList}" >
-            <td th:text="${user.id}"></td>
-            <td th:text="${user.name}"></td>
-            <td th:text="${user.age}"></td>
-        </tr>
-    </table>
+    <!--  redirect to demo page  -->
+    <a th:href="@{~/demo}">Visit demo page</a><br/>
+
+    <!--  redirect to demo page with query paramitter -->
+    <a th:href="@{~/demo(id=1, name=Ali)}">Visit demo page with query paramitter </a><br/>
 
 </body>
 </html>

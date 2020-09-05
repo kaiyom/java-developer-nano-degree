@@ -1,26 +1,51 @@
 package kaiyom.springboothelloworld.controller;
 
-import kaiyom.springboothelloworld.model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Enumeration;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
 
     @GetMapping
-    public String getUser(Model model) {
-        List<User> userList = new ArrayList<>();
-        userList.add( new User(101, "Joe", 19 ) );
-        userList.add( new User(101, "Tom", 18 ) );
-        userList.add( new User(101, "Alex", 21 ) );
+    public String getUser(HttpServletRequest request, Model model) {
 
-        model.addAttribute("userList", userList );
+        /* --- simple debug -- to know more about HttpServletRequest --- */
+        // Enumeration is as same as Iterator
+        // all the request header properties key
+        Enumeration<String> headerNames = request.getHeaderNames();
+
+        while (headerNames.hasMoreElements()) {
+            String nextElement = headerNames.nextElement();
+            // returns the header property based on key
+            String header = request.getHeader(nextElement);
+
+            System.out.printf("%s : %s\n", nextElement, header );
+        }
+
+        // sometime one header key has multiple value (like: accept-language)
+        Enumeration<String> headers = request.getHeaders("accept-language");
+        while (headers.hasMoreElements())
+            System.out.println(headers.nextElement());
+
+        System.out.println(request.getHttpServletMapping().getPattern());
+        System.out.println(request.getHttpServletMapping().getMatchValue());
+
+        /* --- END: simple debug --- */
+
+        // Request
+        request.setAttribute("request", "request data");
+        // Session
+        request.getSession().setAttribute("session", "session data");
+        // Application
+        request.getSession().getServletContext().setAttribute("application", "application data");
+
+
         return "studentPage";
     }
 
